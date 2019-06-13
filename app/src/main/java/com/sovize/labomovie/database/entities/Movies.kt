@@ -1,4 +1,4 @@
-package com.sovize.database.entities
+package com.sovize.labomovie.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
