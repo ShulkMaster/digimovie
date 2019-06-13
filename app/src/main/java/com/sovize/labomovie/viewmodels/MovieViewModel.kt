@@ -14,7 +14,7 @@ class MovieViewModel (app : Application):  AndroidViewModel(app){
 
     private val movieDao = RoomDB.getDatabase(app).movieDao()
     private val repository = MovieRepository(movieDao)
-    private val movieList = MutableLiveData<List<Movie>>()
+    val movieList = MutableLiveData<List<Movie>>()
 
     fun fetchMovie(name: String) {
         viewModelScope.launch {

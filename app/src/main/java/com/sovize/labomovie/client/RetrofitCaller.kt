@@ -1,5 +1,6 @@
 package com.sovize.labomovie.client
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.sovize.labomovie.client.drivers.MovieData
 import com.sovize.labomovie.utils.ServerInfo
 import okhttp3.Interceptor
@@ -32,6 +33,7 @@ object RetrofitCaller {
         .client(customClient)
         .baseUrl(ServerInfo.URL)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 
     fun <E : MovieData> getInstance(masterClass: Class<E>): E = retrofit().create(masterClass)
