@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateRecycler(list: List<Movie>) {
-        if (rv.adapter != null) {
+        if (rv.adapter == null) {
             rv.apply {
                 setHasFixedSize(true)
                 adapter = MovieAdapter(list) {
@@ -62,11 +62,10 @@ class MainActivity : AppCompatActivity() {
                 layoutManager = LinearLayoutManager(this@MainActivity)
             }
         } else {
-            rv.swapAdapter(MovieAdapter(list) {
-                Log.d(AppLogger.main, "Toco $it")
-            }, true)
+            val adapter = rv.adapter as MovieAdapter
+            adapter.movies = list
+            adapter.notifyDataSetChanged()
         }
-
     }
 
 }
