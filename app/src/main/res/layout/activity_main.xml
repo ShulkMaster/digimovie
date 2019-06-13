@@ -25,13 +25,6 @@
                 android:hint="search"
                 android:layout_marginStart="30dp"/>
 
-        <Button
-
-                android:id="@+id/search"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:text="search"
-                android:title="@string/searchx"/>
 
 
     </LinearLayout>
