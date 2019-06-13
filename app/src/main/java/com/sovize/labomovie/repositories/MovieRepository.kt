@@ -44,7 +44,7 @@ class MovieRepository(private val movieDao: MovieDao) {
     }
 
     @WorkerThread
-    suspend fun insert(movie: Movie) = MovieDao.insertMovie(movie)
+    suspend fun insert(movie: Movie) = movieDao.insertMovie(movie)
 
     fun getAllfromRoomDB(): LiveData<List<Movie>> = movieDao.loadAllMovies()
 

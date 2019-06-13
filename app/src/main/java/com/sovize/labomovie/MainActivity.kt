@@ -13,6 +13,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         vm = ViewModelProviders.of(this).get(MovieViewModel::class.java)
-        vm.fetchMovie("hielo")
+        vm.fetchMovie("clannad")
     }
 }

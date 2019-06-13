@@ -1,17 +1,25 @@
 package com.sovize.labomovie.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sovize.labomovie.database.RoomDB
 import com.sovize.labomovie.database.entities.Movie
 import com.sovize.labomovie.repositories.MovieRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MovieViewModel : ViewModel() {
+class MovieViewModel (val app : Application):  AndroidViewModel(app){
 
-    private val repository = MovieRepository()
+    private val repository : MovieRepository
+
+    init {
+        val movieDao = RoomDB.getDatabase(app).movieDao()
+        repository = MovieRepository(movieDao)
+    }
 
 
     private val scope = CoroutineScope(Dispatchers.IO)
