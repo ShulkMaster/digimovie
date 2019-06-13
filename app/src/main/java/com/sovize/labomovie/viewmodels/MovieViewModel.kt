@@ -18,16 +18,17 @@ class MovieViewModel(val app: Application) : AndroidViewModel(app) {
 
     init {
         val movieDao = RoomDB.getDatabase(app).movieDao()
-        //repository = MovieRepository(movieDao, ApiFactory.ombdApi)
+        repository = MovieRepository(movieDao//, ApiFactory.ombdApi
+        )
     }
 
     private val scope = CoroutineScope(Dispatchers.IO)
 
     private val movieslist = MutableLiveData<MutableList<Movie>>()
 
-    private val movieResult = MutableLiveData<Movie>()
+    //private val movieResult = MutableLiveData<Movie>()
 
-    fun fetchMovie(name: String){
+    /*fun fetchMovie(name: String){
         scope.launch {
             val response=repository.retrieveMoviesByNameAsync(name).await()
             if(response.isSuccessful){
@@ -41,11 +42,11 @@ class MovieViewModel(val app: Application) : AndroidViewModel(app) {
                 Toast.makeText(app, "Hi!!!! Algo Fallo :´v", Toast.LENGTH_LONG).show()
             }
         }
-    }
+    }*/
 
     fun getMovieListVM(): LiveData<MutableList<Movie>> = movieslist
 
-    fun fetchMovieByTitle(name: String){
+    /*fun fetchMovieByTitle(name: String){
         scope.launch {
             val response=repository.retrieveMoviesByTitleAsync(name).await()
             if(response.isSuccessful) with(response){
@@ -56,9 +57,9 @@ class MovieViewModel(val app: Application) : AndroidViewModel(app) {
                 Toast.makeText(app, "Hi!!!! Algo Fallo :´v", Toast.LENGTH_LONG).show()
             }
         }
-    }
+    }*/
 
-    fun getMovieResult(): LiveData<Movie> = movieResult
+    //fun getMovieResult(): LiveData<Movie> = movieResult
 
 
     fun insert(movie: Movie) = scope.launch {
