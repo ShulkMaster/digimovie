@@ -1,11 +1,11 @@
-package com.sovize.database
+package com.sovize.labomovie.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sovize.database.daos.MovieDao
-import com.sovize.database.entities.Movie
+import com.sovize.labomovie.database.daos.MovieDao
+import com.sovize.labomovie.database.entities.Movie
 
 @Database(entities = [Movie::class], version = 2, exportSchema = false)
 abstract class RoomDB : RoomDatabase(){

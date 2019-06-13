@@ -1,11 +1,11 @@
-package com.sovize.database.daos
+package com.sovize.labomovie.database.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sovize.database.entities.Movie
+import com.sovize.labomovie.database.entities.Movie
 
 @Dao
 interface MovieDao {

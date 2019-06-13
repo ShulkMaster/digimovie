@@ -1,13 +1,13 @@
-package com.sovize.viewmodels
+package com.sovize.labomovie.viewmodels
 
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sovize.database.RoomDB
-import com.sovize.database.entities.Movie
-import com.sovize.repositories.MovieRepository
+import com.sovize.labomovie.database.RoomDB
+import com.sovize.labomovie.database.entities.Movie
+import com.sovize.labomovie.repositories.MovieRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,7 +32,10 @@ class MovieViewModel(val app: Application) : AndroidViewModel(app) {
             val response=repository.retrieveMoviesByNameAsync(name).await()
             if(response.isSuccessful){
                 when(response.code()){
-                    200->movieslist.postValue(response.body()?.Search?.toMutableList()?:arrayListOf(Movie(Title = "Dummy 1"), MoviePreview(Title = "Dummy 2")))
+                    200->movieslist.postValue(response.body()?.Search?.toMutableList()?:arrayListOf(
+                        Movie(
+                            Title = "Dummy 1"
+                        ), MoviePreview(Title = "Dummy 2")))
                 }
             }else{
                 Toast.makeText(app, "Hi!!!! Algo Fallo :´v", Toast.LENGTH_LONG).show()
