@@ -17,6 +17,7 @@ data class Movie (
     val Plot:String = "N/A",
     val Language:String = "N/A",
     val imdbRating:String = "N/A",
+    val Type : String = "N/A",
     val Poster:String = "N/A",
-    val date : String = "N/A"
+    var date : String = "N/A"
 )
