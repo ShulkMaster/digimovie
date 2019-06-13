@@ -9,7 +9,8 @@ import com.sovize.labomovie.R
 import com.sovize.labomovie.database.entities.Movie
 import kotlinx.android.synthetic.main.cardview_movie.view.*
 
-class MovieAdapter(var movies: List<Movie>, val clickListener: (Movie) -> Unit) : RecyclerView.Adapter<MovieAdapter.ViewHolder>(){
+class MovieAdapter(var movies: List<Movie>, private val clickListener: (Movie) -> Unit) :
+    RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_movie, parent, false)
@@ -20,13 +21,9 @@ class MovieAdapter(var movies: List<Movie>, val clickListener: (Movie) -> Unit) 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(movies[position], clickListener)
 
-    fun changeDataSet(newMovieList: List<Movie>) {
-        movies = newMovieList
-        notifyDataSetChanged()
-    }
 
-    class ViewHolder(item: View): RecyclerView.ViewHolder(item){
-        fun bind(movie: Movie, clickListener: (Movie) -> Unit) = with(itemView){
+    class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+        fun bind(movie: Movie, clickListener: (Movie) -> Unit) = with(itemView) {
             Glide.with(itemView.context)
                 .load(movie.Poster)
                 .placeholder(R.drawable.ic_launcher_background)

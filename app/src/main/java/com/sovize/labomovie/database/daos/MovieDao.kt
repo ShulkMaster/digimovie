@@ -13,8 +13,8 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovie(movie: Movie)
 
-    @Query("select * from Movie")
-    fun loadAllMovies(): LiveData<List<Movie>>
+    @Query("select * from Movie order by date")
+    suspend fun loadAllMovies(): List<Movie>
 
     @Query("select * from Movie where Title like :name")
     fun searchMovieByName(name: String): LiveData<List<Movie>>

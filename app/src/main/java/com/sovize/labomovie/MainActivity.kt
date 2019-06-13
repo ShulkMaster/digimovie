@@ -14,15 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sovize.labomovie.database.entities.Movie
 import com.sovize.labomovie.utils.AppLogger
 import com.sovize.labomovie.viewmodels.MovieViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var vm: MovieViewModel
     private lateinit var rv: RecyclerView
     private val observer = Observer<List<Movie>> {
-            Log.d("MainAcitivty", it.toString())
-
         updateRecycler(it)
     }
 
@@ -31,27 +28,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         vm = ViewModelProviders.of(this).get(MovieViewModel::class.java)
-        //bind()
-        vm.fetchMovie("romance")
-
         rv = findViewById(R.id.RecyclerView)
-
         vm.movieList.observe(this, observer)
+        vm.loadCache()
         setEditableRT()
     }
 
-    /*fun bind(){
-        vm = ViewModelProviders.of(this).get(MovieViewModel::class.java)
-
-        val linearLayoutManager = LinearLayoutManager(this)
-        vm.getMovieListVM().observe(this, Observer { result ->
-            adapterM.changeDataSet(result)
-        })
-
-        RecyclerView.apply {
-            adapter=adapterM
-        }
-    }*/
     private fun setEditableRT() {
         findViewById<EditText>(R.id.idBuscar).addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
