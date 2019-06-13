@@ -9,7 +9,6 @@ import com.sovize.labomovie.database.entities.Movie
 import com.sovize.labomovie.repositories.MovieRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.*
 
 class MovieViewModel(app: Application) : AndroidViewModel(app) {
 
@@ -26,6 +25,10 @@ class MovieViewModel(app: Application) : AndroidViewModel(app) {
                 movieList.value = result
                 writeToDb(result)
             }
+        cJob = viewModelScope.launch {
+            movieList.value = repository.movieSearch(name)
+            poblate()
+        }
     }
 
     private suspend fun writeToDb(data: List<Movie>) {
@@ -35,9 +38,14 @@ class MovieViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    //fun getMovieResult(): LiveData<Movie> = movieResult
+
+
     fun loadCache() {
         viewModelScope.launch {
             movieList.value = repository.getAllFromRoomDB()
         }
     }
+
+
 }
