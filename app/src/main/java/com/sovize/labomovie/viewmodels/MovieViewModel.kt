@@ -3,6 +3,7 @@ package com.sovize.labomovie.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sovize.labomovie.database.entities.Movie
 import com.sovize.labomovie.repositories.MovieRepository
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +23,9 @@ class MovieViewModel : ViewModel() {
 
 
     fun fetchMovie(name: String) {
+        viewModelScope.launch {
+
+        }
         repository.movieSearch(name)
     }
 

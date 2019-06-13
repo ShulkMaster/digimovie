@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">labomovie</string>
+    <string name="search">Buscar Película</string>
+    <string name="searchx">Search</string>
 </resources>
