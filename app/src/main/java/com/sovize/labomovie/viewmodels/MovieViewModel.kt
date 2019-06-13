@@ -8,16 +8,19 @@ import androidx.lifecycle.viewModelScope
 import com.sovize.labomovie.database.RoomDB
 import com.sovize.labomovie.database.entities.Movie
 import com.sovize.labomovie.repositories.MovieRepository
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MovieViewModel (app : Application):  AndroidViewModel(app){
+class MovieViewModel(app: Application) : AndroidViewModel(app) {
 
     private val movieDao = RoomDB.getDatabase(app).movieDao()
     private val repository = MovieRepository(movieDao)
     val movieList = MutableLiveData<List<Movie>>()
+    var cJob: Job? = null
 
     fun fetchMovie(name: String) {
-        viewModelScope.launch {
+        cJob?.cancel()
+        cJob = viewModelScope.launch {
             movieList.value = repository.movieSearch(name)
         }
     }
