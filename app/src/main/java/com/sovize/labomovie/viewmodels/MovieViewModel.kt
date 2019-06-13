@@ -22,20 +22,26 @@ class MovieViewModel(app: Application) : AndroidViewModel(app) {
         cJob?.cancel()
         cJob = viewModelScope.launch {
             movieList.value = repository.movieSearch(name)
+            poblate()
         }
     }
 
     fun getMovieListVM(): LiveData<List<Movie>> = movieList
 
-    fun fetchMovieByTitle(name: String) {
-
+    fun poblate() {
+        movieList.value?.forEach {
+            insert(it)
+        }
 
     }
+
+
 
     //fun getMovieResult(): LiveData<Movie> = movieResult
 
 
     fun insert(movie: Movie) = viewModelScope.launch {
+
 
     }
 
