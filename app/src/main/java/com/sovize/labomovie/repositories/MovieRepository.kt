@@ -1,15 +1,20 @@
 package com.sovize.labomovie.repositories
 
 import android.util.Log
+import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import com.sovize.labomovie.client.RetrofitCaller
 import com.sovize.labomovie.client.drivers.MovieData
 import com.sovize.labomovie.client.models.ServerResponse
+import com.sovize.labomovie.database.daos.MovieDao
+import com.sovize.labomovie.database.entities.Movie
 import com.sovize.labomovie.utils.AppLogger
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieRepository {
+class MovieRepository(private val movieDao: MovieDao) {
+
 
     fun movieSearch(title: String) {
         val caller = RetrofitCaller.getInstance(MovieData::class.java)
@@ -37,5 +42,12 @@ class MovieRepository {
 
 
     }
+
+    @WorkerThread
+    suspend fun insert(movie: Movie) = MovieDao.insertMovie(movie)
+
+    fun getAllfromRoomDB(): LiveData<List<Movie>> = movieDao.loadAllMovies()
+
+    fun getMovieByName(name: String) = movieDao.searchMovieByName(name)
 
 }
