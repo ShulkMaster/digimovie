@@ -16,31 +16,27 @@ import retrofit2.Response
 class MovieRepository(private val movieDao: MovieDao) {
 
 
-    fun movieSearch(title: String) {
+    suspend fun movieSearch(title: String) : List<Movie> {
         val caller = RetrofitCaller.getInstance(MovieData::class.java)
-        caller.searchTitle(title).enqueue(object : Callback<ServerResponse> {
-
-            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
-                Log.d(AppLogger.retro, "Error de API", t)
-            }
-
-            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
-                when (response.code()) {
-                    200 -> {
-                        Log.d(AppLogger.retro, "Funciono ${response.body()}")
-                        response.body()?.Search?.forEach {
-                            Log.d(AppLogger.retro, "Funciono $it")
-                        }
+        val result = caller.searchTitleAsync(title).await()
+        return if (result.isSuccessful){
+            when (result.code()) {
+                200 -> {
+                    Log.d(AppLogger.retro, "Funciono ${result.body()}")
+                    result.body()?.Search?.forEach {
+                        Log.d(AppLogger.retro, "Funciono $it")
                     }
-                    else -> {
-                        Log.d(AppLogger.retro, "Se conecto pero  ${response.errorBody()}")
-                    }
+                    result.body()?.Search?:listOf(Movie())
+                }
+                else -> {
+                    Log.d(AppLogger.retro, "Se conecto pero  ${result.errorBody()}")
+                    result.body()?.Search?:listOf(Movie())
                 }
             }
-
-        })
-
-
+        } else{
+            Log.d(AppLogger.retro, "Error de red")
+            listOf(Movie())
+        }
     }
 
     @WorkerThread
