@@ -1,5 +1,6 @@
 package com.sovize.labomovie.client
 
+import com.sovize.labomovie.client.drivers.MovieData
 import com.sovize.labomovie.utils.ServerInfo
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -33,7 +34,6 @@ object RetrofitCaller {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    fun <E : Any> getIntance(masterClass: E) : E =
-        retrofit().create(masterClass::class.java)
+    fun <E : MovieData> getInstance(masterClass: Class<E>): E = retrofit().create(masterClass)
 
 }
