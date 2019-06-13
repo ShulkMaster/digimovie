@@ -20,14 +20,10 @@ class MovieViewModel(app: Application) : AndroidViewModel(app) {
 
     fun fetchMovie(name: String) {
         cJob?.cancel()
-        if (movieList.value != null)
-            cJob = viewModelScope.launch {
-                val result = repository.movieSearch(name)
-                movieList.value = result
-                writeToDb(result)
-            }
         cJob = viewModelScope.launch {
-            movieList.value = repository.movieSearch(name)
+            val result = repository.movieSearch(name)
+            movieList.value = result
+            writeToDb(result)
         }
     }
 
